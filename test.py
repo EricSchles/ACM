@@ -23,5 +23,13 @@ class DemositeTestCase(unittest.TestCase):
         d.add("asd","dsa")
         assert sum(1 for _ in d.iterator()) == 3
 
+    def test_deletion(self):
+        d = demosite.dataStore();
+        d.add("foo","bar")
+        d.add("baz","qux")
+        d.add("asd","dsa")
+        d.remove("baz")
+        assert sum(1 for _ in d.iterator()) == 2
+
 if __name__ == '__main__':
     unittest.main()
