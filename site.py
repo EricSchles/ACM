@@ -48,7 +48,11 @@ def put_value():
 
 class dataStore:
     def __init__(self):
-        self.hashmap = {} #instantiates a hashmap
+        if os.path.isfile(DATAFILE):
+            fileobject = open(DATAFILE, "r")
+            g.data.hashmap = pickle.load(fileobject)  
+        else:
+            self.hashmap = {} #instantiates a hashmap
 
     def get(self, key):
         """used to get an item in the map"""
@@ -75,25 +79,21 @@ class dataStore:
         if not isEmpty():
             self.hashmap = {}
 
-@app.before_request
-def before_request():
-    """Initializes a datastore for this session"""
-    g.data = dataStore()
-    if os.path.isfile(DATAFILE):
-        fileobject = open(DATAFILE, "r")
-        g.data.hashmap = pickle.load(fileobject)  
-    
-    
-    
-    
-@app.teardown_request
-def teardown_request(exception):
-    """sends data to a persistent file, closes connection"""
-    if not g.data.isEmpty():
+    def serialize(self):
         fileobject = open(DATAFILE, "w")
         pickle.dump(g.data.hashmap, fileobject)
         #sends the datastructure to a file on teardown
         #to load simply do x = pickle.load(fileobject)
+
+@app.before_request
+def before_request():
+    """Initializes a datastore for this session"""
+    g.data = dataStore()
+    
+@app.teardown_request
+def teardown_request(exception):
+    """sends data to a persistent file, closes connection"""
+    g.data.serialize()
 
 if __name__ == '__main__':
     app.debug = True
