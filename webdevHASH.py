@@ -24,17 +24,26 @@ PASSWORD = 'default'
 app = Flask(__name__)
 app.config.from_object(__name__)
 
+@app.route("/")
+def index():
+    return render_template('index.html')
 
+@app.route("/get")
+def get_value(val):
+    return g.data.get(request.args.get('key',''))
 
 class dataStore:
     def __init__(self):
         self.hashmap = {} #instantiates a hashmap
-        
 
     def get(self, key):
         """used to get an item in the map"""
         return self.hashmap[key]
-        
+
+    def has_key(self, key):
+        """Check if a key is associated with a value in the map"""
+        return self.hashmap.has_key(key)
+
     def add(self,key_value):
         """used to add an item in the map, must be of the form {key:value}"""
         self.hashmap.update(value)
@@ -45,13 +54,12 @@ class dataStore:
 
     def isEmpty(self):
         """checks if hashmap is empty, returns a boolean"""
-        return self.hashmap != {}:
-            
+        return self.hashmap != {}
+
     def makeEmpty(self):
         """makes the hashmap empty, if it isn't already"""
         if not isEmpty():
             self.hashmap = {}
-
 
 @app.before_request
 def before_request():
@@ -69,7 +77,6 @@ def teardown_request(exception):
         pickle.dump(permData.hashmap, fileobject)
         #sends the datastructure to a file on teardown
         #to load simply do x = pickle.load(fileobject)
-
 
 if __name__ == '__main__':
     app.run()

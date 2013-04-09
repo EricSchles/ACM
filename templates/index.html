@@ -1,0 +1,18 @@
+{% block body %}
+<form action="{{url_for('get_value') }}" method=get>
+  <dl>
+    <dt> Get a Value by Key: </dt>
+    <dd><input type=text size=30 name=key></dd>
+  </dl>
+</form>
+
+<form action="{{url_for('put_value') }}" method=get>
+  <dl>
+    <dt> Associate a Key:</dt>
+    <dd><input type=text size=30 name=key></dd>
+    <dt> With a Value:</dt>
+    <dd><input type=text size=30 name=value></dd>
+  </dl>
+</form>
+
+{% endblock %}
