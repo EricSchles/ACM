@@ -104,8 +104,9 @@ class dataStore:
         self.root = None
 
     def serialize(self):
-        fileobject = open(DATAFILE, "w")
-        pickle.dump(g.data.root, fileobject)
+        if not self.isEmpty():
+            fileobject = open(DATAFILE, "w")
+            pickle.dump(g.data.root, fileobject)
         #sends the datastructure to a file on teardown
         #to load simply do x = pickle.load(fileobject)
 
