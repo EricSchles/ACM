@@ -11,6 +11,7 @@ Stores data as a hash map
 #all the imports
 from flask import Flask, request, session, g, redirect, url_for, abort, \
     render_template, flash
+import pickle
 
 #configuration
 DATABASE = ''
@@ -64,7 +65,11 @@ def teardown_request(exception):
     if not isEmpty():
         permData.hashmap = g.data.hashmap
         g.data.hashmap.clear()
-        fileobject = 
+        fileobject = open("dataStore", "w")
+        pickle.dump(permData.hashmap, fileobject)
+        #sends the datastructure to a file on teardown
+        #to load simply do x = pickle.load(fileobject)
+
 
 if __name__ == '__main__':
     app.run()
