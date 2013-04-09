@@ -43,20 +43,25 @@ class dataStore:
         del self.hashmap[key]
 
     def isEmpty(self):
+        """checks if hashmap is empty, returns a boolean"""
         return self.hashmap != {}:
             
     def makeEmpty(self):
+        """makes the hashmap empty, if it isn't already"""
         if not isEmpty():
             self.hashmap = {}
 
 
 @app.before_request
 def before_request():
+    """Initializes a datastore"""
     data = dataStore()
  
 @app.teardown_request
 def teardown_request(exception):
-    
+    """sends data to an immutable object after interacting"""
+    while not isEmpty():
+        data.hashmap
     
 
 if __name__ == '__main__':
