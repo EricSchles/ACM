@@ -32,9 +32,12 @@ def index():
 def get_value():
     return g.data.get(request.args.get('key',''))
 
-@app.route("/put")
+@app.route("/put", methods=['POST'])
 def put_value():
-    return g.data.add({request.args.get('key'): request.args.get('value')})
+    key = request.form['key']
+    value = request.form['value']
+    g.data.add(key,value)
+    return "" + key + " is now associated with: " + value
 
 class dataStore:
     def __init__(self):
@@ -48,9 +51,9 @@ class dataStore:
         """Check if a key is associated with a value in the map"""
         return self.hashmap.has_key(key)
 
-    def add(self,key_value):
+    def add(self,key,value):
         """used to add an item in the map, must be of the form {key:value}"""
-        self.hashmap.update(value)
+        self.hashmap[key] = value
 
     def remove(self,key):
         """used to remove an item from the map"""
@@ -58,7 +61,7 @@ class dataStore:
 
     def isEmpty(self):
         """checks if hashmap is empty, returns a boolean"""
-        return self.hashmap != {}
+        return self.hashmap == {}
 
     def makeEmpty(self):
         """makes the hashmap empty, if it isn't already"""
