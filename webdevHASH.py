@@ -72,8 +72,14 @@ class dataStore:
 def before_request():
     """Initializes a datastore for this session"""
     g.data = dataStore()
-    g.data.hashmap = pickle.load(open("dataStore","r"))
- 
+    try:
+        fileobject = open("dataStore","w")
+    except(IOError),e:
+        return render_template('500.html'), 500
+    
+    g.data.hashmap = pickle.load(fileobject)
+    
+    
 @app.teardown_request
 def teardown_request(exception):
     """sends data to a persistent file, closes connection"""
