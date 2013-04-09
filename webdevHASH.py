@@ -21,13 +21,13 @@ class dataStore:
         """used to get an item in the map"""
         return self.hashmap[key]
         
-    def add(self,value):
+    def add(self,key_value):
         """used to add an item in the map, must be of the form {key:value}"""
         self.hashmap.update(value)
 
-    def remove(self):
+    def remove(self,key):
         """used to remove an item from the map"""
-        
+        self.hashmap
 
 
 
