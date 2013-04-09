@@ -168,7 +168,7 @@ class Node:
           @param data node's content to delete
           """
           # get node containing data
-          node, parent = self.lookup(key, value)
+          node, parent = self.lookup(key)
           if node is not None:
               if parent.left is node:
                   parent.left = None
