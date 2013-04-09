@@ -1,5 +1,12 @@
 {% extends "layout.html" %}
 {% block body %}
+<ol>
+{% for pair in data %}
+<li>
+{{pair[0]}}:{{pair[1]}}
+{% endfor %}
+</ol>
+
 <form action="{{url_for('get_value') }}" method=get>
   <dl>
     <dt> Get a Value by Key: </dt>

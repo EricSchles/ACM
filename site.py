@@ -28,7 +28,7 @@ app.config.from_object(__name__)
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template('index.html',data=g.data.iterator())
 
 @app.route("/get")
 def get_value():
@@ -44,7 +44,7 @@ def put_value():
     key = request.form['key']
     value = request.form['value']
     g.data.add(key,value)
-    return "" + key + " is now associated with: " + value
+    return render_template('put.html',key=key,value=value)
 
 @app.route("/delete", methods=['POST'])
 def remove_value():
@@ -108,6 +108,9 @@ class dataStore:
         pickle.dump(g.data.root, fileobject)
         #sends the datastructure to a file on teardown
         #to load simply do x = pickle.load(fileobject)
+
+    def iterator(self):
+        return self.root.tree_data()
 
 class Node:
     """
