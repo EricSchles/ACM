@@ -42,8 +42,21 @@ class dataStore:
         """used to remove an item from the map"""
         del self.hashmap[key]
 
- 
+    def isEmpty(self):
+        return self.hashmap != {}:
+            
+    def makeEmpty(self):
+        if not isEmpty():
+            self.hashmap = {}
 
+
+@app.before_request
+def before_request():
+    data = dataStore()
+ 
+@app.teardown_request
+def teardown_request(exception):
+    
     
 
 if __name__ == '__main__':
