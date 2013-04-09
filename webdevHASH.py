@@ -72,12 +72,10 @@ class dataStore:
 def before_request():
     """Initializes a datastore for this session"""
     g.data = dataStore()
-    try:
-        fileobject = open("dataStore","w")
-    except(IOError),e:
-        return render_template('500.html'), 500
+   if os.path.isfile("~/ACM/dataStore"):
+        g.data.hashmap = pickle.load(fileobject)  
     
-    g.data.hashmap = pickle.load(fileobject)
+    
     
     
 @app.teardown_request
