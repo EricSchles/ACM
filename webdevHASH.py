@@ -8,8 +8,23 @@ This website is in flask.
 Stores data as a hash map
 """
 
-from flask import Flask
+#all the imports
+from flask import Flask, request, session, g, redirect, url_for, abort, \
+    render_template, flash
 
+#configuration
+DATABASE = ''
+DEBUG = False
+SECRET_KEY = 'development key'
+USERNAME = 'admin'
+PASSWORD = 'default'
+
+#create our little application
+app = Flask(__name__)
+app.config.from_object(__name__)
+
+def connect_db():
+    return 
 
 
 class dataStore:
@@ -30,15 +45,3 @@ class dataStore:
         del self.hashmap[key]
 
 
-
-#basic idea, fix this....
-@app.route('/add', methods=['POST'])
-def add_entry():
-    if not session.get('logged_in'):
-        abort(401)
-    db = get_db()
-    db.execute('insert into entries (title, text) values (?, ?)',
-                 [request.form['title'], request.form['text']])
-    db.commit()
-    flash('New entry was successfully posted')
-    return redirect(url_for('show_entries'))
