@@ -14,14 +14,17 @@ from flask import Flask
 
 class dataStore:
     def __init__(self):
-        self.hashmap = {}
-
-    def get(self):
-        """used to get an item in the map"""
+        self.hashmap = {} #instantiates a hashmap
         
-    def add(self):
-    """used to add an item in the map"""
-    
+
+    def get(self, key):
+        """used to get an item in the map"""
+        return self.hashmap[key]
+        
+    def add(self,value):
+        """used to add an item in the map, must be of the form {key:value}"""
+        self.hashmap.update(value)
+
     def remove(self):
         """used to remove an item from the map"""
         
