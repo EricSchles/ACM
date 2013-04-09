@@ -12,7 +12,19 @@ from flask import Flask
 
 hash_map = {}
 
+class hashmap:
+    def __init__(self):
+        self.hashmap = {}
 
+    def get(self):
+        """used to get an item in the map"""
+        
+    def add(self):
+    """used to add an item in the map"""
+    
+    def remove(self):
+        """used to remove an item from the map"""
+        
 
 
 
