@@ -10,9 +10,9 @@ Stores data as a hash map
 
 from flask import Flask
 
-hash_map = {}
 
-class hashmap:
+
+class dataStore:
     def __init__(self):
         self.hashmap = {}
 
