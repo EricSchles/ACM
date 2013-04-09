@@ -12,6 +12,7 @@ Stores data as a hash map
 from flask import Flask, request, session, g, redirect, url_for, abort, \
     render_template, flash
 import pickle
+import os
 
 #configuration
 DATABASE = ''
@@ -19,6 +20,7 @@ DEBUG = False
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
 PASSWORD = 'default'
+DATAFILE = 'dataStore'
 
 #create our little application
 app = Flask(__name__)
@@ -72,7 +74,8 @@ class dataStore:
 def before_request():
     """Initializes a datastore for this session"""
     g.data = dataStore()
-   if os.path.isfile("~/ACM/dataStore"):
+    if os.path.isfile(DATAFILE):
+        fileobject = open(DATAFILE, "r")
         g.data.hashmap = pickle.load(fileobject)  
     
     
@@ -82,7 +85,7 @@ def before_request():
 def teardown_request(exception):
     """sends data to a persistent file, closes connection"""
     if not g.data.isEmpty():
-        fileobject = open("dataStore", "w")
+        fileobject = open(DATAFILE, "w")
         pickle.dump(g.data.hashmap, fileobject)
         #sends the datastructure to a file on teardown
         #to load simply do x = pickle.load(fileobject)
