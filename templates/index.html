@@ -1,9 +1,5 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<html lang="en">
-<head>
-    <title>ACM Demo Map</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block body %}
 <form action="{{url_for('get_value') }}" method=get>
   <dl>
     <dt> Get a Value by Key: </dt>
@@ -21,6 +17,5 @@
   </dl>
   <input type=submit value="Put!">
 </form>
-</body>
-</html>
+{% endblock %}
 

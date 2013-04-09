@@ -32,7 +32,12 @@ def index():
 
 @app.route("/get")
 def get_value():
-    return g.data.get(request.args.get('key',''))
+    key = request.args.get('key')
+    value_exists = g.data.has_key(key)
+    value = False
+    if(value_exists):
+        value = g.data.get(request.args.get('key',''))
+    return render_template('get.html', value=value, value_exists=value_exists, key=key)
 
 @app.route("/put", methods=['POST'])
 def put_value():
