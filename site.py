@@ -46,11 +46,18 @@ def put_value():
     g.data.add(key,value)
     return "" + key + " is now associated with: " + value
 
+@app.route("/delete", methods=['POST'])
+def remove_value():
+    key = request.form['key']
+    g.data.remove(key)
+    return render_template('get.html', value=None, value_exists=False, key=key) 
+
+
 class dataStore:
     def __init__(self):
         if os.path.isfile(DATAFILE):
             fileobject = open(DATAFILE, "r")
-            g.data.hashmap = pickle.load(fileobject)  
+            self.hashmap = pickle.load(fileobject)  
         else:
             self.hashmap = {} #instantiates a hashmap
 

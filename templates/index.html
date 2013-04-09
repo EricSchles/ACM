@@ -17,5 +17,14 @@
   </dl>
   <input type=submit value="Put!">
 </form>
+<form action="{{url_for('remove_value') }}" method=post>
+  <dl>
+    <dt> Remove pair:</dt>
+    <dd><input type=text size=30 name=key></dd>
+  </dl>
+  <input type=submit value="Remove!">
+</form>
+
+
 {% endblock %}
 
