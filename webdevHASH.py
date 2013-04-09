@@ -29,8 +29,12 @@ def index():
     return render_template('index.html')
 
 @app.route("/get")
-def get_value(val):
+def get_value():
     return g.data.get(request.args.get('key',''))
+
+@app.route("/put")
+def put_value():
+    return g.data.add({request.args.get('key'): request.args.get('value')})
 
 class dataStore:
     def __init__(self):
@@ -65,18 +69,17 @@ class dataStore:
 def before_request():
     """Initializes a datastore for this session"""
     g.data = dataStore()
+    g.data.hashmap = pickle.load(open("dataStore","r"))
  
 @app.teardown_request
 def teardown_request(exception):
     """sends data to a persistent file, closes connection"""
-    permData = dataStore()
-    if not isEmpty():
-        permData.hashmap = g.data.hashmap
-        g.data.hashmap.clear()
+    if not g.data.isEmpty():
         fileobject = open("dataStore", "w")
-        pickle.dump(permData.hashmap, fileobject)
+        pickle.dump(g.data.hashmap, fileobject)
         #sends the datastructure to a file on teardown
         #to load simply do x = pickle.load(fileobject)
 
 if __name__ == '__main__':
+    app.debug = True
     app.run()
