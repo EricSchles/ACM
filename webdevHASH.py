@@ -27,7 +27,7 @@ class dataStore:
 
     def remove(self,key):
         """used to remove an item from the map"""
-        self.hashmap
+        del self.hashmap[key]
 
 
 
