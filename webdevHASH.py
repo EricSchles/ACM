@@ -54,15 +54,17 @@ class dataStore:
 
 @app.before_request
 def before_request():
-    """Initializes a datastore"""
-    data = dataStore()
+    """Initializes a datastore for this session"""
+    g.data = dataStore()
  
 @app.teardown_request
 def teardown_request(exception):
-    """sends data to an immutable object after interacting"""
-    while not isEmpty():
-        data.hashmap
-    
+    """sends data to a persistent file, closes connection"""
+    permData = dataStore()
+    if not isEmpty():
+        permData.hashmap = g.data.hashmap
+        g.data.hashmap.clear()
+        fileobject = 
 
 if __name__ == '__main__':
     app.run()
