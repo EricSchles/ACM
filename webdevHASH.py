@@ -23,8 +23,6 @@ PASSWORD = 'default'
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-def connect_db():
-    return 
 
 
 class dataStore:
@@ -44,4 +42,9 @@ class dataStore:
         """used to remove an item from the map"""
         del self.hashmap[key]
 
+ 
 
+    
+
+if __name__ == '__main__':
+    app.run()
